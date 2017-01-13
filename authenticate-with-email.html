@@ -1,0 +1,65 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/social-icons.html">
+<link rel="import" href="../polymerfire/firebase-auth.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+
+<dom-module id="authenticate-with-email">
+  <template>
+    <style>
+    </style>
+
+    <firebase-auth id="auth" on-error="handleError">
+    </firebase-auth>
+
+    <paper-input label="text input" value="{{username}}" required></paper-input>
+    <paper-input label="password input" type="password" value="{{password}}" required></paper-input>
+
+    <paper-button toggles raised noink on-click="_handleClick">toggles</paper-button>
+
+    <paper-toast
+      id="loginfailedtoast"
+      text="Login Failed">
+    </paper-toast>
+  </template>
+  <script>
+    Polymer({
+      is: 'authenticate-with-email',
+
+      properties: {
+        disabled: {
+          type: Boolean,
+          reflectToAttribute: true,
+          notify: true,
+          value: false
+        }
+      },
+
+      /*
+       * Handles clicking on the button
+       */
+      _handleClick: function() {
+        this.$.auth.signInWithEmailAndPassword(this.username, this.password)
+        .then( (response)=> {
+          // successful authentication response here
+          this.fire('login-success', {
+            user: response
+          });
+        })
+        .catch( (error)=> {
+          // unsuccessful authentication
+          this.$.loginfailedtoast.open();
+        });
+      },
+
+      /*
+       *  Opens login failed toast when login unsuccessful
+       */
+      handleError: function() {
+        this.$.loginfailedtoast.open();
+      }
+    });
+  </script>
+</dom-module>
