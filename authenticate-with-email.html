@@ -9,6 +9,10 @@
 <dom-module id="authenticate-with-email">
   <template>
     <style>
+      paper-button {
+        width: 100%;
+        margin-top: 10px;
+      }
     </style>
 
     <firebase-auth id="auth" on-error="handleError">
@@ -17,7 +21,7 @@
     <paper-input label="username" value="{{username}}" required></paper-input>
     <paper-input label="password" type="password" value="{{password}}" required></paper-input>
 
-    <paper-button toggles raised noink on-click="_handleClick">Login</paper-button>
+    <paper-button raised noink on-click="_handleClick">Login</paper-button>
 
     <paper-toast
       id="loginfailedtoast"
