@@ -14,10 +14,10 @@
     <firebase-auth id="auth" on-error="handleError">
     </firebase-auth>
 
-    <paper-input label="text input" value="{{username}}" required></paper-input>
-    <paper-input label="password input" type="password" value="{{password}}" required></paper-input>
+    <paper-input label="username" value="{{username}}" required></paper-input>
+    <paper-input label="password" type="password" value="{{password}}" required></paper-input>
 
-    <paper-button toggles raised noink on-click="_handleClick">toggles</paper-button>
+    <paper-button toggles raised noink on-click="_handleClick">Login</paper-button>
 
     <paper-toast
       id="loginfailedtoast"
